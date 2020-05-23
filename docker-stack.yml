@@ -1,24 +1,19 @@
-- name: Deploy stack from a compose file
-  docker_stack:
-    state: present
-    name: mystack
-    compose:
-      - ./compose/docker-compose.yml
+---
+- hosts: localhost
 
-- name: Deploy stack from base compose file and override the web service
-  docker_stack:
-    state: present
-    name: mystack
-    compose:
-      - ./compose/docker-compose.yml
-      - version: '3'
-        services:
-          web:
-            image: nginx:latest
-            environment:
-              ENVVAR: envvar
+  tasks:
+    - name: Create project directory
+      file: path=/tmp/{{ PROJECT }}/{{ DOMAIN }} state=directory
+      tags: docker-swarm-deploy
 
-- name: Remove stack
-  docker_stack:
-    name: mystack
-    state: absent
+    - name: Copy Docker Stack File
+      copy:
+        src: ./compose/docker-compose.yml
+        dest: /tmp/{{ PROJECT }}/{{ DOMAIN }}/docker-compose.yml
+        mode: u=rw,g=r,o=r
+      tags: docker-swarm-deploy
+
+    - name: Deploy Docker Stack
+      shell: >
+        docker stack deploy -c /tmp/{{ PROJECT }}/{{ DOMAIN }}/docker-compose.yml {{ STACK }} --with-registry-auth
+      tags: docker-swarm-deploy
