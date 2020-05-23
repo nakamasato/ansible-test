@@ -218,3 +218,31 @@ docker stack ls
 NAME                SERVICES            ORCHESTRATOR
 ```
 
+### 4. Ansible Playbook
+
+#### Deploy
+
+```
+ansible-playbook docker-stack.yml --extra-vars="DOMAIN=test PROJECT=myproject STACK=mystack" -vvv
+```
+
+#### Check
+
+```
+docker stack ls
+NAME                SERVICES            ORCHESTRATOR
+mystack             1                   Swarm
+```
+
+#### Other commands
+
+- `ansible-playbook --check docker-stack.yml --extra-vars="DOMAIN=test PROJECT=myproject STACK=mystack"`
+- `ansible-playbook --diff docker-stack.yml --extra-vars="DOMAIN=test PROJECT=myproject STACK=mystack"`
+
+#### Clean up
+
+```
+docker stack rm mystack
+Removing service mystack_nginx
+Removing network mystack_default
+```
