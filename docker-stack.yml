@@ -1,0 +1,24 @@
+- name: Deploy stack from a compose file
+  docker_stack:
+    state: present
+    name: mystack
+    compose:
+      - ./compose/docker-compose.yml
+
+- name: Deploy stack from base compose file and override the web service
+  docker_stack:
+    state: present
+    name: mystack
+    compose:
+      - ./compose/docker-compose.yml
+      - version: '3'
+        services:
+          web:
+            image: nginx:latest
+            environment:
+              ENVVAR: envvar
+
+- name: Remove stack
+  docker_stack:
+    name: mystack
+    state: absent
