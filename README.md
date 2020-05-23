@@ -130,7 +130,6 @@ docker stack rm stack-test
 Removing service stack-test_nginx
 Removing network stack-test_default
 ```
-```
 
 ### 3. Ansible
 
