@@ -25,6 +25,14 @@ docker-compose -f compose/docker-compose.yml up
 
 ```
 curl localhost:8080
+```
+
+<details>
+<summary>Result...</summary>
+<p>
+
+```
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,7 +58,10 @@ Commercial support is available at
 <p><em>Thank you for using nginx.</em></p>
 </body>
 </html>
-```
+\```
+
+</p>
+</details>
 
 #### Clean up
 
@@ -96,6 +107,13 @@ ID                  NAME                MODE                REPLICAS            
 
 ```
 curl localhost:8080
+```
+
+<details>
+<summary>Result...</summary>
+<p>
+
+```
 <!DOCTYPE html>
 <html>
 <head>
@@ -121,7 +139,10 @@ Commercial support is available at
 <p><em>Thank you for using nginx.</em></p>
 </body>
 </html>
-```
+\```
+
+</p>
+</details>
 
 #### Clean up
 
@@ -166,6 +187,13 @@ mystack             1                   Swarm
 
 ```
 curl localhost:8080
+```
+
+<details>
+<summary>Result...</summary>
+<p>
+
+```
 <!DOCTYPE html>
 <html>
 <head>
@@ -191,7 +219,10 @@ Commercial support is available at
 <p><em>Thank you for using nginx.</em></p>
 </body>
 </html>
-```
+\```
+
+</p>
+</details>
 
 #### Clean up
 
@@ -245,4 +276,16 @@ mystack             1                   Swarm
 docker stack rm mystack
 Removing service mystack_nginx
 Removing network mystack_default
+```
+
+## Prometheus Grafana
+
+```
+ansible-playbook monitoring-stack.yml
+```
+
+```
+docker stack ls
+NAME                SERVICES            ORCHESTRATOR
+monitoring          8                   Swarm
 ```

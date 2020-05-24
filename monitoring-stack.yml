@@ -1,0 +1,24 @@
+---
+- hosts: localhost 
+
+  vars:
+    grafana_admin_password: password
+  tasks:
+    - name: Create project directory
+      file: path=/tmp/monitoring state=directory
+      tags: docker-swarm-deploy
+
+    - name: Copy Docker Stack File
+      copy:
+        src: ../../official/swarmprom/
+        dest: /tmp/monitoring/swarmprom/
+        mode: u=rw,g=r,o=r
+      tags: docker-swarm-deploy
+
+    - name: Deploy Docker Stack
+      environment:
+        ADMIN_PASSWORD: password
+        ADMIN_USER: admin
+      shell: >
+        docker stack deploy -c /tmp/monitoring/swarmprom/docker-compose.yml monitoring --with-registry-auth
+      tags: docker-swarm-deploy
